@@ -1,8 +1,5 @@
 package space;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-
 import static java.lang.Math.sqrt;
 
 public class PhysicalObject {
@@ -34,11 +31,11 @@ public class PhysicalObject {
         return this;
     }
 
-    public void hitBy(PhysicalObject other) {
+    public void hitBy(PhysicalObject other, double increment) {
         // find collision point by backstepping
 
         //backstep increment
-        final double s = -Space.seconds / 10;
+        final double s = -increment / 10;
         //total backstep size to be found incrementally
         double dt = 0;
         //vector from this object to the other object
