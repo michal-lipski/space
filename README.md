@@ -35,15 +35,6 @@ Enable reuse of `PhysicalObject`
 Intermediate level
 ------------------
 ##### Background
-The solar system and bouncing balls applications are to be sold in separate delivery packages.
-Due to legal issues, the solar system may not contain any bouncing balls logic and vice versa.
-##### Goal
-Two separate, minimal, deliverables for bouncing balls and solar system.
-
-
-Difficult level
----------------
-##### Background
 The application is a huge success, and will be ported to a limited
 device without Swing/AWT support. The exact API of the new graphics support is
 not ready, but to be first on the market when it arrives, you need to start
@@ -51,3 +42,19 @@ separating presentation logic from domain ASAP.
 ##### Goal
 The domain logic is compilable without Swing/AWT dependencies. When Swing/AWT +
 any bridging code is available, the application should be runnable.
+
+Create Space
+extraxt method create,setVisible,run
+przeniesienie do instancji step
+przeniesienie reszty
+
+
+
+Difficult level
+---------------
+##### Background
+The solar system and bouncing balls applications are to be sold in separate delivery packages.
+Due to legal issues, the solar system may not contain any bouncing balls logic and vice versa.
+##### Goal
+Two separate, minimal, deliverables for bouncing balls and solar system.
+
