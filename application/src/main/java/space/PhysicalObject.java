@@ -109,7 +109,7 @@ public class PhysicalObject {
     public void paintPhysicalObject(Graphics2D graphics, PaintingDimensions paintingDimensions, boolean isBouncingBalls) {
         if (!isBouncingBalls) {
             graphics.setColor(WeightColorMapper.weightToColor(mass));
-            int diameter = mass >= Space.EARTH_WEIGHT * 10000 ? 7 : 2;
+            int diameter = mass >= SpaceConstants.EARTH_WEIGHT * 10000 ? 7 : 2;
             int xtmp = (int) ((x - paintingDimensions.centrex) / paintingDimensions.scale + paintingDimensions.frameWidth / 2);
             int ytmp = (int) ((y - paintingDimensions.centrey) / paintingDimensions.scale + paintingDimensions.frameHeight / 2);
             graphics.fillOval(

@@ -19,7 +19,6 @@ import java.util.List;
 
 public class Space extends JFrame implements MouseWheelListener,
         MouseMotionListener, KeyListener {
-    public static final double EARTH_WEIGHT = 5.9736e24;
     private static final double ASTRONOMICAL_UNIT = 149597870.7e3;
     static boolean IS_BOUNCING_BALLS = false;
     static boolean IS_BREAKOUT = false; // Opens bottom, only active if IS_BOUNCING_BALLS is true
@@ -80,7 +79,7 @@ public class Space extends JFrame implements MouseWheelListener,
             for (int i = 0; i < nrOfObjects; i++) {
                 double angle = randSquare() * 2 * Math.PI;
                 double radius = (0.1 + 0.9 * Math.sqrt(randSquare())) * outerLimit;
-                double weightKilos = 1e3 * EARTH_WEIGHT * (Math.pow(0.00001 + 0.99999 * randSquare(), 12));
+                double weightKilos = 1e3 * SpaceConstants.EARTH_WEIGHT * (Math.pow(0.00001 + 0.99999 * randSquare(), 12));
                 double x = radius * Math.sin(angle);
                 double y = radius * Math.cos(angle);
                 double speedRandom = Math.sqrt(1 / radius) * 2978000*1500 * (0.4 + 0.6 * randSquare());
@@ -92,7 +91,7 @@ public class Space extends JFrame implements MouseWheelListener,
 
             scale = outerLimit / space.getWidth();
 
-            add(EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
+            add(SpaceConstants.EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
         } else {
             nrOfObjects = 50;
             space.setStepSize(1); // One second per iteration
