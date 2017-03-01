@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Space extends JFrame implements MouseWheelListener,
+public class SpaceApp extends JFrame implements MouseWheelListener,
         MouseMotionListener, KeyListener {
     public static final double EARTH_WEIGHT = 5.9736e24;
     private static final double ASTRONOMICAL_UNIT = 149597870.7e3;
@@ -40,9 +40,9 @@ public class Space extends JFrame implements MouseWheelListener,
 
     static JFrame frame;
 
-    public Space() {
+    public SpaceApp() {
         setBackground(Color.BLACK);
-        Space.frame = this;
+        SpaceApp.frame = this;
     }
 
     @Override
@@ -78,14 +78,14 @@ public class Space extends JFrame implements MouseWheelListener,
     }
 
     public static void main(String[] args) throws InterruptedException, InvocationTargetException {
-        final Space space = new Space();
-        space.addMouseWheelListener(space);
-        space.addMouseMotionListener(space);
-        space.addKeyListener(space);
-        space.setSize(800, 820);
+        final SpaceApp spaceApp = new SpaceApp();
+        spaceApp.addMouseWheelListener(spaceApp);
+        spaceApp.addMouseMotionListener(spaceApp);
+        spaceApp.addKeyListener(spaceApp);
+        spaceApp.setSize(800, 820);
 
         if (!IS_BOUNCING_BALLS) {
-            space.setStepSize(3600 * 24 * 7);
+            spaceApp.setStepSize(3600 * 24 * 7);
 
             double outerLimit = ASTRONOMICAL_UNIT * 20;
 
@@ -102,29 +102,29 @@ public class Space extends JFrame implements MouseWheelListener,
                 add(weightKilos, x, y, vx, vy, 1);
             }
 
-            scale = outerLimit / space.getWidth();
+            scale = outerLimit / spaceApp.getWidth();
 
             add(EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
         } else {
             nrOfObjects = 50;
-            space.setStepSize(1); // One second per iteration
+            spaceApp.setStepSize(1); // One second per iteration
             for (int i = 0; i < nrOfObjects; i++) {
                 // radius,weight in [1,20]
                 double radiusAndWeight = 1 + 19 * Math.random();
                 //x,y in [max radius, width or height - max radius]
-                Space.add(radiusAndWeight, 20 + 760 * Math.random(), 20 + 760 * Math.random(), 3 - 6 * Math.random(), 3 - 6 * Math.random(), radiusAndWeight);
+                SpaceApp.add(radiusAndWeight, 20 + 760 * Math.random(), 20 + 760 * Math.random(), 3 - 6 * Math.random(), 3 - 6 * Math.random(), radiusAndWeight);
             }
             scale = 1;
             centrex = 400;
             centrey = 390; //Must compensate for title bar
         }
-        space.setVisible(true);
+        spaceApp.setVisible(true);
         while (true) {
             final long start = System.currentTimeMillis();
             EventQueue.invokeAndWait(new Runnable() {
                 public void run() {
-                    space.collide();
-                    space.step();
+                    spaceApp.collide();
+                    spaceApp.step();
                 }
             });
             try {
@@ -148,7 +148,7 @@ public class Space extends JFrame implements MouseWheelListener,
     }
 
     public void setStepSize(double seconds) {
-        Space.seconds = seconds;
+        SpaceApp.seconds = seconds;
     }
 
     public static PhysicalObject add(double weightKilos, double x, double y,
