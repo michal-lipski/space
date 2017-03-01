@@ -84,7 +84,7 @@ public class SpaceApp extends JFrame implements MouseWheelListener,
         spaceApp.addKeyListener(spaceApp);
         spaceApp.setSize(800, 820);
 
-        createSpace(spaceApp, spaceApp.getWidth());
+        spaceApp.setStepSize(createSpace(spaceApp.getWidth()));
         spaceApp.setVisible(true);
         while (true) {
             final long start = System.currentTimeMillis();
@@ -109,9 +109,9 @@ public class SpaceApp extends JFrame implements MouseWheelListener,
         }
     }
 
-    private static void createSpace(SpaceApp spaceApp, int width) {
+    private static int createSpace(int width) {
         if (!IS_BOUNCING_BALLS) {
-            spaceApp.setStepSize(3600 * 24 * 7);
+            int stepSize = 3600 * 24 * 7;
 
             double outerLimit = ASTRONOMICAL_UNIT * 20;
 
@@ -131,9 +131,10 @@ public class SpaceApp extends JFrame implements MouseWheelListener,
             scale = outerLimit / width;
 
             add(EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
+            return stepSize;
         } else {
             nrOfObjects = 50;
-            spaceApp.setStepSize(1); // One second per iteration
+            int stepSize = 1;
             for (int i = 0; i < nrOfObjects; i++) {
                 // radius,weight in [1,20]
                 double radiusAndWeight = 1 + 19 * Math.random();
@@ -143,6 +144,7 @@ public class SpaceApp extends JFrame implements MouseWheelListener,
             scale = 1;
             centrex = 400;
             centrey = 390; //Must compensate for title bar
+            return stepSize;
         }
     }
 
