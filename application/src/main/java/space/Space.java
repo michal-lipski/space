@@ -3,9 +3,9 @@ package space;
 public class Space {
 
 
-    static int createSpace(int width) {
+    static int createSpace(int width, boolean isBouncingBalls) {
         int nrOfObjects = 75;
-        if (!SpaceApp.IS_BOUNCING_BALLS) {
+        if (!isBouncingBalls) {
             int stepSize = 3600 * 24 * 7;
 
             double outerLimit = SpaceConstant.ASTRONOMICAL_UNIT * 20;
