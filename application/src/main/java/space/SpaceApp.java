@@ -84,6 +84,32 @@ public class SpaceApp extends JFrame implements MouseWheelListener,
         spaceApp.addKeyListener(spaceApp);
         spaceApp.setSize(800, 820);
 
+        createSpace(spaceApp);
+        spaceApp.setVisible(true);
+        while (true) {
+            final long start = System.currentTimeMillis();
+            EventQueue.invokeAndWait(new Runnable() {
+                public void run() {
+                    spaceApp.collide();
+                    spaceApp.step();
+                }
+            });
+            try {
+                long ahead = 1000 / frameRate - (System.currentTimeMillis() - start);
+                if (ahead > 50) {
+                    Thread.sleep(ahead);
+                    if(frameRate<25) frameRate++;
+                } else {
+                    Thread.sleep(50);
+                    frameRate--;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void createSpace(SpaceApp spaceApp) {
         if (!IS_BOUNCING_BALLS) {
             spaceApp.setStepSize(3600 * 24 * 7);
 
@@ -117,28 +143,6 @@ public class SpaceApp extends JFrame implements MouseWheelListener,
             scale = 1;
             centrex = 400;
             centrey = 390; //Must compensate for title bar
-        }
-        spaceApp.setVisible(true);
-        while (true) {
-            final long start = System.currentTimeMillis();
-            EventQueue.invokeAndWait(new Runnable() {
-                public void run() {
-                    spaceApp.collide();
-                    spaceApp.step();
-                }
-            });
-            try {
-                long ahead = 1000 / frameRate - (System.currentTimeMillis() - start);
-                if (ahead > 50) {
-                    Thread.sleep(ahead);
-                    if(frameRate<25) frameRate++;
-                } else {
-                    Thread.sleep(50);
-                    frameRate--;
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 
