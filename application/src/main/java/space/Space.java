@@ -55,7 +55,7 @@ public class Space extends JFrame implements MouseWheelListener,
                 graphics.clearRect(0, 0, getWidth(), getHeight());
             }
             for (PhysicalObject po : objects) {
-                PaintingDimensions paintingDimensions = new PaintingDimensions(centrex,centrey,scale);
+                PaintingDimensions paintingDimensions = new PaintingDimensions(centrex,centrey,scale, frame.getWidth(), frame.getHeight());
                 po.paintPhysicalObject(graphics,paintingDimensions, IS_BOUNCING_BALLS);
                 String string = "Objects:" + objects.size() + " scale:" + scale + " steps:" + step + " frame rate: " + frameRate;
                 setTitle(string);
