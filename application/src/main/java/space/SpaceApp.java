@@ -34,7 +34,6 @@ public class SpaceApp extends JFrame implements MouseWheelListener,
     static double scale = 10;
     private static boolean showWake = false;
     private static int step = 0;
-    private static int nrOfObjects = 75;
     private static int frameRate = 25;
 
     static JFrame frame;
@@ -109,12 +108,13 @@ public class SpaceApp extends JFrame implements MouseWheelListener,
     }
 
     private static int createSpace(int width) {
+        int nrOfObjects = 75;
         if (!IS_BOUNCING_BALLS) {
             int stepSize = 3600 * 24 * 7;
 
             double outerLimit = SpaceConstant.ASTRONOMICAL_UNIT * 20;
 
-            for (int i = 0; i < nrOfObjects; i++) {
+            for (int i = 0; i <  nrOfObjects; i++) {
                 double angle = RandomSquareUtil.randSquare() * 2 * Math.PI;
                 double radius = (0.1 + 0.9 * Math.sqrt(RandomSquareUtil.randSquare())) * outerLimit;
                 double weightKilos = 1e3 * EARTH_WEIGHT * (Math.pow(0.00001 + 0.99999 * RandomSquareUtil.randSquare(), 12));
