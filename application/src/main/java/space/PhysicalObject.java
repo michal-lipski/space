@@ -108,7 +108,7 @@ public class PhysicalObject {
 
     public void paintPhysicalObject(Graphics2D graphics, PaintingDimensions paintingDimensions) {
         if (!Space.IS_BOUNCING_BALLS) {
-            graphics.setColor(Space.weightToColor(mass));
+            graphics.setColor(WeightColorMapper.weightToColor(mass));
             int diameter = mass >= Space.EARTH_WEIGHT * 10000 ? 7 : 2;
             int xtmp = (int) ((x - paintingDimensions.centrex) / paintingDimensions.scale + Space.frame.getSize().width / 2);
             int ytmp = (int) ((y - paintingDimensions.centrey) / paintingDimensions.scale + Space.frame.getSize().height / 2);
