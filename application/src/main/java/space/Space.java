@@ -13,7 +13,7 @@ public class Space {
             for (int i = 0; i <  nrOfObjects; i++) {
                 double angle = RandomSquareUtil.randSquare() * 2 * Math.PI;
                 double radius = (0.1 + 0.9 * Math.sqrt(RandomSquareUtil.randSquare())) * outerLimit;
-                double weightKilos = 1e3 * SpaceApp.EARTH_WEIGHT * (Math.pow(0.00001 + 0.99999 * RandomSquareUtil.randSquare(), 12));
+                double weightKilos = 1e3 * SpaceConstant.EARTH_WEIGHT * (Math.pow(0.00001 + 0.99999 * RandomSquareUtil.randSquare(), 12));
                 double x = radius * Math.sin(angle);
                 double y = radius * Math.cos(angle);
                 double speedRandom = Math.sqrt(1 / radius) * 2978000*1500 * (0.4 + 0.6 * RandomSquareUtil.randSquare());
@@ -25,7 +25,7 @@ public class Space {
 
             SpaceApp.scale = outerLimit / width;
 
-            SpaceApp.add(SpaceApp.EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
+            SpaceApp.add(SpaceConstant.EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
             return stepSize;
         } else {
             nrOfObjects = 50;

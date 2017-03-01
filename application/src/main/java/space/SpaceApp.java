@@ -19,7 +19,6 @@ import java.util.List;
 
 public class SpaceApp extends JFrame implements MouseWheelListener,
         MouseMotionListener, KeyListener {
-    public static final double EARTH_WEIGHT = 5.9736e24;
     static boolean IS_BOUNCING_BALLS = false;
     static boolean IS_BREAKOUT = false; // Opens bottom, only active if IS_BOUNCING_BALLS is true
 

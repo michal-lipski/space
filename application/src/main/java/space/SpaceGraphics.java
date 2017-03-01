@@ -8,7 +8,7 @@ public class SpaceGraphics {
     public void paintPhysicalObject(Graphics2D graphics, PhysicalObject po) {
         if (!SpaceApp.IS_BOUNCING_BALLS) {
             graphics.setColor(SpaceApp.weightToColor(po.mass));
-            int diameter = po.mass >= SpaceApp.EARTH_WEIGHT * 10000 ? 7 : 2;
+            int diameter = po.mass >= SpaceConstant.EARTH_WEIGHT * 10000 ? 7 : 2;
             int xtmp = (int) ((po.x - SpaceApp.centrex) / SpaceApp.scale + SpaceApp.frame.getSize().width / 2);
             int ytmp = (int) ((po.y - SpaceApp.centrey) / SpaceApp.scale + SpaceApp.frame.getSize().height / 2);
             graphics.fillOval(
