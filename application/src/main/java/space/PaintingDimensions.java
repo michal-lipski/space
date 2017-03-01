@@ -1,9 +1,9 @@
 package space;
 
 class PaintingDimensions {
-    private final double centrex;
-    private final double centrey;
-    private final double scale;
+    public final double centrex;
+    public final double centrey;
+    public final double scale;
 
     public PaintingDimensions(double centrex, double centrey, double scale) {
 
