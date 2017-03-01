@@ -34,11 +34,11 @@ public class PhysicalObject {
         return this;
     }
 
-    public void hitBy(PhysicalObject other) {
+    public void hitBy(PhysicalObject other, double seconds) {
         // find collision point by backstepping
 
         //backstep increment
-        final double s = -Space.seconds / 10;
+        final double s = -seconds / 10;
         //total backstep size to be found incrementally
         double dt = 0;
         //vector from this object to the other object
