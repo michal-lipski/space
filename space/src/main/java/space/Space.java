@@ -34,7 +34,7 @@ public class Space implements Serializable {
                 add(weightKilos, x, y, vx, vy, 1);
             }
 
-            SpaceApp.scale = outerLimit / width;
+//            SpaceApp.scale = outerLimit / width;
 
             add(SpaceConstants.EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
             return new SpaceConfig(outerLimit / width, 400, 390);
@@ -47,9 +47,9 @@ public class Space implements Serializable {
                 //x,y in [max radius, width or height - max radius]
                 add(radiusAndWeight, 20 + 760 * Math.random(), 20 + 760 * Math.random(), 3 - 6 * Math.random(), 3 - 6 * Math.random(), radiusAndWeight);
             }
-            SpaceApp.scale = 1;
-            SpaceApp.centrex = 400;
-            SpaceApp.centrey = 390; //Must compensate for title bar
+//            SpaceApp.scale = 1;
+//            SpaceApp.centrex = 400;
+//            SpaceApp.centrey = 390; //Must compensate for title bar
             return new SpaceConfig(1,400,390);
         }
     }
@@ -146,8 +146,12 @@ public class Space implements Serializable {
         Space.seconds = seconds;
     }
 
-    String spaceInfo() {
-        return "Objects:" + objects.size() + " scale:" + SpaceApp.scale + " steps:" + step;
+    public int getStep() {
+        return step;
+    }
+
+    public int getSize() {
+        return objects.size();
     }
 
     boolean isNotBalls() {

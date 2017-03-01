@@ -28,7 +28,7 @@ public class SpaceApp extends JFrame implements MouseWheelListener,
     private static int frameRate = 25;
 
     static JFrame frame;
-    private final Space space = new Space();
+    public final Space space = new Space();
 
     public SpaceApp() {
         setBackground(Color.BLACK);
@@ -43,6 +43,10 @@ public class SpaceApp extends JFrame implements MouseWheelListener,
         spaceApp.setSize(800, 820);
         spaceApp.runApp();
 
+    }
+
+    static String spaceInfo(Space space) {
+        return "Objects:" + space.getSize() + " scale:" + scale + " steps:" + space.getStep();
     }
 
     private void runApp() throws InvocationTargetException, InterruptedException {
@@ -92,7 +96,7 @@ public class SpaceApp extends JFrame implements MouseWheelListener,
             }
             for (PhysicalObject po : space.objects) {
                 new SpaceGraphics().paintPhysicalObject(graphics,po);
-                String string = space.spaceInfo() + " frame rate: " + frameRate;
+                String string = spaceInfo(space) + " frame rate: " + frameRate;
                 setTitle(string);
             }
             original.drawImage(buffer, 0, 0, getWidth(), getHeight(), null);
