@@ -110,8 +110,8 @@ public class PhysicalObject {
         if (!isBouncingBalls) {
             graphics.setColor(WeightColorMapper.weightToColor(mass));
             int diameter = mass >= Space.EARTH_WEIGHT * 10000 ? 7 : 2;
-            int xtmp = (int) ((x - paintingDimensions.centrex) / paintingDimensions.scale + Space.frame.getSize().width / 2);
-            int ytmp = (int) ((y - paintingDimensions.centrey) / paintingDimensions.scale + Space.frame.getSize().height / 2);
+            int xtmp = (int) ((x - paintingDimensions.centrex) / paintingDimensions.scale + paintingDimensions.frameWidth / 2);
+            int ytmp = (int) ((y - paintingDimensions.centrey) / paintingDimensions.scale + paintingDimensions.frameHeight / 2);
             graphics.fillOval(
                     xtmp-diameter/2,
                     ytmp-diameter/2,
@@ -119,8 +119,8 @@ public class PhysicalObject {
                     diameter);
         } else { //BREAKOUT
             graphics.setColor(Color.WHITE);
-            int xtmp = (int) ((x - paintingDimensions.centrex)  + Space.frame.getSize().width / 2);
-            int ytmp = (int) ((y - paintingDimensions.centrey)  + Space.frame.getSize().height / 2);
+            int xtmp = (int) ((x - paintingDimensions.centrex)  + paintingDimensions.frameWidth / 2);
+            int ytmp = (int) ((y - paintingDimensions.centrey)  + paintingDimensions.frameHeight / 2);
             graphics.fillOval(
                     (int) (xtmp - radius ),
                     (int) (ytmp - radius ),
