@@ -126,7 +126,7 @@ public class SpaceView extends JFrame implements MouseWheelListener,
             final long start = System.currentTimeMillis();
             EventQueue.invokeAndWait(new Runnable() {
                 public void run() {
-                    SpaceLogic.collide();
+                    SpaceLogic.collide(IS_BOUNCING_BALLS, IS_BREAKOUT);
                     spaceView.step();
                 }
             });
@@ -150,7 +150,7 @@ public class SpaceView extends JFrame implements MouseWheelListener,
     }
 
     public void step() {
-        SpaceLogic.logicStep();
+        SpaceLogic.logicStep(IS_BOUNCING_BALLS);
         step++;
         paint(getGraphics());
     }

@@ -10,8 +10,8 @@ public class SpaceLogic {
     static final double ASTRONOMICAL_UNIT = 149597870.7e3;
     static List<PhysicalObject> objects = new ArrayList<PhysicalObject>();
 
-    static void logicStep() {
-        if (!SpaceView.IS_BOUNCING_BALLS) {
+    static void logicStep(boolean isBouncingBalls) {
+        if (!isBouncingBalls) {
             for (PhysicalObject aff : objects) {
                 double fx = 0;
                 double fy = 0;
@@ -41,7 +41,7 @@ public class SpaceLogic {
         }
     }
 
-    static void collide() {
+    static void collide(boolean isBouncingBalls, boolean isBreakout) {
         List<PhysicalObject> remove = new ArrayList<PhysicalObject>();
         for (PhysicalObject one : objects) {
             if (remove.contains(one))
@@ -49,7 +49,7 @@ public class SpaceLogic {
             for (PhysicalObject other : objects) {
                 if (one == other || remove.contains(other))
                     continue;
-                if (!SpaceView.IS_BOUNCING_BALLS) {
+                if (!isBouncingBalls) {
                     if (Math.sqrt(Math.pow(one.x - other.x, 2) + Math.pow(one.y - other.y, 2)) < 5e9) {
                         one.absorb(other);
                         remove.add(other);
@@ -63,7 +63,7 @@ public class SpaceLogic {
                 }
             }
             // Wall collision reverses speed in that direction
-            if (SpaceView.IS_BOUNCING_BALLS) {
+            if (isBouncingBalls) {
                 if (one.x - one.radius < 0) {
                     one.vx = -one.vx;
                 }
@@ -73,7 +73,7 @@ public class SpaceLogic {
                 if (one.y - one.radius < 0) {
                     one.vy = -one.vy;
                 }
-                if (one.y + one.radius > 800 && !SpaceView.IS_BREAKOUT) {
+                if (one.y + one.radius > 800 && !isBreakout) {
                     one.vy = -one.vy;
                 } else if (one.y - one.radius > 800) {
                     remove.add(one);
