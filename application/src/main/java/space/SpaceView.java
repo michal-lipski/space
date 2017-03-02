@@ -39,6 +39,25 @@ public class SpaceView extends JFrame implements MouseWheelListener,
         SpaceView.frame = this;
     }
 
+    static void initSpace(SpaceView spaceView, int nrOfObjects) {
+        if (!IS_BOUNCING_BALLS) {
+            spaceView.setStepSize(3600 * 24 * 7);
+
+            double outerLimit = SpaceLogic.bouncingBallsMainLogic(nrOfObjects);
+
+            scale = outerLimit / spaceView.getWidth();
+
+            SpaceLogic.add(EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
+        } else {
+            spaceView.setStepSize(1); // One second per iteration
+
+            SpaceLogic.nonBouncingBallsMainLogic();
+            scale = 1;
+            centrex = 400;
+            centrey = 390; //Must compensate for title bar
+        }
+    }
+
     public void paintPhysicalObject(PhysicalObject physicalObject, Graphics2D graphics) {
         if (!IS_BOUNCING_BALLS) {
             graphics.setColor(weightToColor(physicalObject.mass));
@@ -101,7 +120,7 @@ public class SpaceView extends JFrame implements MouseWheelListener,
         spaceView.addKeyListener(spaceView);
         spaceView.setSize(800, 820);
 
-        SpaceLogic.mainLogic(spaceView, 75);
+        initSpace(spaceView, 75);
         spaceView.setVisible(true);
         while (true) {
             final long start = System.currentTimeMillis();
@@ -128,14 +147,6 @@ public class SpaceView extends JFrame implements MouseWheelListener,
 
     public void setStepSize(double seconds) {
         SpaceView.seconds = seconds;
-    }
-
-    public static PhysicalObject add(double weightKilos, double x, double y,
-                                     double vx, double vy, double radius) {
-        PhysicalObject physicalObject = new PhysicalObject(weightKilos, x, y,
-                vx, vy, radius);
-        SpaceLogic.objects.add(physicalObject);
-        return physicalObject;
     }
 
     public void step() {
