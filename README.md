@@ -30,7 +30,8 @@ The `PhysicalObject` is to be used in another project. However, the entire `Spac
 Your task is to extract the `PhysicalObject` to a new project.
 ##### Goal
 Enable reuse of `PhysicalObject`
-
+##### Solution
+See solution2 branch
 
 Intermediate level
 ------------------
@@ -39,7 +40,8 @@ The solar system and bouncing balls applications are to be sold in separate deli
 Due to legal issues, the solar system may not contain any bouncing balls logic and vice versa.
 ##### Goal
 Two separate, minimal, deliverables for bouncing balls and solar system.
-
+##### Solution
+See Intermediate-solution branch
 
 Difficult level
 ---------------
