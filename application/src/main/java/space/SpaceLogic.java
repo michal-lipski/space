@@ -10,7 +10,7 @@ public class SpaceLogic {
     static List<PhysicalObject> objects = new ArrayList<PhysicalObject>();
 
     static void logicStep() {
-        if (!Space.IS_BOUNCING_BALLS) {
+        if (!SpaceView.IS_BOUNCING_BALLS) {
             for (PhysicalObject aff : objects) {
                 double fx = 0;
                 double fy = 0;
@@ -26,15 +26,15 @@ public class SpaceLogic {
                 }
                 double ax = fx / aff.mass;
                 double ay = fy / aff.mass;
-                aff.x = aff.x - ax * Math.pow(Space.seconds, 2) / 2 + aff.vx * Space.seconds;
-                aff.y = aff.y - ay * Math.pow(Space.seconds, 2) / 2 + aff.vy * Space.seconds;
-                aff.vx = aff.vx - ax * Space.seconds;
-                aff.vy = aff.vy - ay * Space.seconds;
+                aff.x = aff.x - ax * Math.pow(SpaceView.seconds, 2) / 2 + aff.vx * SpaceView.seconds;
+                aff.y = aff.y - ay * Math.pow(SpaceView.seconds, 2) / 2 + aff.vy * SpaceView.seconds;
+                aff.vx = aff.vx - ax * SpaceView.seconds;
+                aff.vy = aff.vy - ay * SpaceView.seconds;
             }
         } else {
             for (PhysicalObject physicalObject : objects) {
-                physicalObject.x = physicalObject.x + physicalObject.vx * Space.seconds;
-                physicalObject.y = physicalObject.y + physicalObject.vy * Space.seconds;
+                physicalObject.x = physicalObject.x + physicalObject.vx * SpaceView.seconds;
+                physicalObject.y = physicalObject.y + physicalObject.vy * SpaceView.seconds;
             }
 
         }
