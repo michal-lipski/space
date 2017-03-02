@@ -45,7 +45,7 @@ public class Space extends JFrame implements MouseWheelListener,
         Space.frame = this;
     }
 
-    public static void paintPhysicalObject(PhysicalObject physicalObject, Graphics2D graphics) {
+    public void paintPhysicalObject(PhysicalObject physicalObject, Graphics2D graphics) {
         if (!IS_BOUNCING_BALLS) {
             graphics.setColor(weightToColor(physicalObject.mass));
             int diameter = physicalObject.mass >= EARTH_WEIGHT * 10000 ? 7 : 2;
