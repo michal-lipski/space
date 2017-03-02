@@ -233,7 +233,7 @@ public class Space extends JFrame implements MouseWheelListener,
                     double distance = Math.sqrt(Math.pow(one.x - other.x, 2) + Math.pow(one.y - other.y, 2));
                     double collsionDistance = one.radius + other.radius;
                     if (distance < collsionDistance) {
-                        one.hitBy(other);
+                        one.hitBy(other, seconds);
                     }
                 }
             }
