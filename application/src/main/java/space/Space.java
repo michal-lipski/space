@@ -45,6 +45,29 @@ public class Space extends JFrame implements MouseWheelListener,
         Space.frame = this;
     }
 
+    public static void paintPhysicalObject(PhysicalObject physicalObject, Graphics2D graphics) {
+        if (!IS_BOUNCING_BALLS) {
+            graphics.setColor(weightToColor(physicalObject.mass));
+            int diameter = physicalObject.mass >= EARTH_WEIGHT * 10000 ? 7 : 2;
+            int xtmp = (int) ((physicalObject.x - centrex) / scale + frame.getSize().width / 2);
+            int ytmp = (int) ((physicalObject.y - centrey) / scale + frame.getSize().height / 2);
+            graphics.fillOval(
+                    xtmp-diameter/2,
+                    ytmp-diameter/2,
+                    diameter,
+                    diameter);
+        } else { //BREAKOUT
+            graphics.setColor(Color.WHITE);
+            int xtmp = (int) ((physicalObject.x - centrex)  + frame.getSize().width / 2);
+            int ytmp = (int) ((physicalObject.y - centrey)  + frame.getSize().height / 2);
+            graphics.fillOval(
+                    (int) (xtmp - physicalObject.radius),
+                    (int) (ytmp - physicalObject.radius),
+                    (int) (2 * physicalObject.radius),
+                    (int) (2 * physicalObject.radius));
+        }
+    }
+
     @Override
     public void paint(Graphics original) {
         if (original != null) {
@@ -55,7 +78,7 @@ public class Space extends JFrame implements MouseWheelListener,
                 graphics.clearRect(0, 0, getWidth(), getHeight());
             }
             for (PhysicalObject po : objects) {
-                PhysicalObject.paintPhysicalObject(po, graphics);
+                paintPhysicalObject(po, graphics);
                 String string = "Objects:" + objects.size() + " scale:" + scale + " steps:" + step + " frame rate: " + frameRate;
                 setTitle(string);
             }
