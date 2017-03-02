@@ -27,7 +27,6 @@ public class Space extends JFrame implements MouseWheelListener,
 
     private static final long serialVersionUID = 1532817796535372081L;
 
-    private static final double G = 6.67428e-11; // m3/kgs2
     public static double seconds = 1;
     private static List<PhysicalObject> objects = new ArrayList<PhysicalObject>();
     static double centrex = 0.0;
@@ -183,6 +182,12 @@ public class Space extends JFrame implements MouseWheelListener,
     }
 
     public void step() {
+        logicStep();
+        paint(getGraphics());
+
+    }
+
+    private static void logicStep() {
         if (!IS_BOUNCING_BALLS) {
             for (PhysicalObject aff : objects) {
                 double fx = 0;
@@ -192,7 +197,7 @@ public class Space extends JFrame implements MouseWheelListener,
                         continue;
                     double[] d = new double[]{aff.x - oth.x, aff.y - oth.y};
                     double r2 = Math.pow(d[0], 2) + Math.pow(d[1], 2);
-                    double f = G * aff.mass * oth.mass / r2;
+                    double f = SpaceLogic.G * aff.mass * oth.mass / r2;
                     double sqrtOfR2 = Math.sqrt(r2);
                     fx += f * d[0] / sqrtOfR2;
                     fy += f * d[1] / sqrtOfR2;
@@ -212,8 +217,6 @@ public class Space extends JFrame implements MouseWheelListener,
 
         }
         step++;
-        paint(getGraphics());
-
     }
 
     private void collide() {
