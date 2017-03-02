@@ -106,12 +106,12 @@ public class PhysicalObject {
                 + mass + ",radius=" + radius;
     }
 
-    public void paintPhysicalObject(Graphics2D graphics) {
+    public static void paintPhysicalObject(PhysicalObject physicalObject, Graphics2D graphics) {
         if (!Space.IS_BOUNCING_BALLS) {
-            graphics.setColor(Space.weightToColor(mass));
-            int diameter = mass >= Space.EARTH_WEIGHT * 10000 ? 7 : 2;
-            int xtmp = (int) ((x - Space.centrex) / Space.scale + Space.frame.getSize().width / 2);
-            int ytmp = (int) ((y - Space.centrey) / Space.scale + Space.frame.getSize().height / 2);
+            graphics.setColor(Space.weightToColor(physicalObject.mass));
+            int diameter = physicalObject.mass >= Space.EARTH_WEIGHT * 10000 ? 7 : 2;
+            int xtmp = (int) ((physicalObject.x - Space.centrex) / Space.scale + Space.frame.getSize().width / 2);
+            int ytmp = (int) ((physicalObject.y - Space.centrey) / Space.scale + Space.frame.getSize().height / 2);
             graphics.fillOval(
                     xtmp-diameter/2,
                     ytmp-diameter/2,
@@ -119,13 +119,13 @@ public class PhysicalObject {
                     diameter);
         } else { //BREAKOUT
             graphics.setColor(Color.WHITE);
-            int xtmp = (int) ((x - Space.centrex)  + Space.frame.getSize().width / 2);
-            int ytmp = (int) ((y - Space.centrey)  + Space.frame.getSize().height / 2);
+            int xtmp = (int) ((physicalObject.x - Space.centrex)  + Space.frame.getSize().width / 2);
+            int ytmp = (int) ((physicalObject.y - Space.centrey)  + Space.frame.getSize().height / 2);
             graphics.fillOval(
-                    (int) (xtmp - radius ),
-                    (int) (ytmp - radius ),
-                    (int) (2 * radius),
-                    (int) (2 * radius));
+                    (int) (xtmp - physicalObject.radius),
+                    (int) (ytmp - physicalObject.radius),
+                    (int) (2 * physicalObject.radius),
+                    (int) (2 * physicalObject.radius));
         }
     }
 }
