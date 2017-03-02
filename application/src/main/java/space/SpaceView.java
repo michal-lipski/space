@@ -17,7 +17,6 @@ import java.lang.reflect.InvocationTargetException;
 
 public class SpaceView extends JFrame implements MouseWheelListener,
         MouseMotionListener, KeyListener {
-    public static final double EARTH_WEIGHT = 5.9736e24;
     static boolean IS_BOUNCING_BALLS = false;
     static boolean IS_BREAKOUT = false; // Opens bottom, only active if IS_BOUNCING_BALLS is true
 
@@ -46,7 +45,7 @@ public class SpaceView extends JFrame implements MouseWheelListener,
 
             scale = outerLimit / spaceView.getWidth();
 
-            SpaceLogic.add(EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
+            SpaceLogic.add(SpaceLogic.EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
         } else {
             SpaceLogic.setStepSize(1); // One second per iteration
 
@@ -60,7 +59,7 @@ public class SpaceView extends JFrame implements MouseWheelListener,
     public void paintPhysicalObject(PhysicalObject physicalObject, Graphics2D graphics) {
         if (!IS_BOUNCING_BALLS) {
             graphics.setColor(weightToColor(physicalObject.mass));
-            int diameter = physicalObject.mass >= EARTH_WEIGHT * 10000 ? 7 : 2;
+            int diameter = physicalObject.mass >= SpaceLogic.EARTH_WEIGHT * 10000 ? 7 : 2;
             int xtmp = (int) ((physicalObject.x - centrex) / scale + frame.getSize().width / 2);
             int ytmp = (int) ((physicalObject.y - centrey) / scale + frame.getSize().height / 2);
             graphics.fillOval(

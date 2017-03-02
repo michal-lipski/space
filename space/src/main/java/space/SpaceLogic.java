@@ -6,6 +6,7 @@ import java.util.List;
 public class SpaceLogic {
 
 
+    public static final double EARTH_WEIGHT = 5.9736e24;
     static final double G = 6.67428e-11; // m3/kgs2
     static final double ASTRONOMICAL_UNIT = 149597870.7e3;
     public static double seconds = 1;
@@ -104,7 +105,7 @@ public class SpaceLogic {
         for (int i = 0; i < nrOfObjects; i++) {
             double angle = randSquare() * 2 * Math.PI;
             double radius = (0.1 + 0.9 * Math.sqrt(randSquare())) * outerLimit;
-            double weightKilos = 1e3 * SpaceView.EARTH_WEIGHT * (Math.pow(0.00001 + 0.99999 * randSquare(), 12));
+            double weightKilos = 1e3 * EARTH_WEIGHT * (Math.pow(0.00001 + 0.99999 * randSquare(), 12));
             double x = radius * Math.sin(angle);
             double y = radius * Math.cos(angle);
             double speedRandom = Math.sqrt(1 / radius) * 2978000*1500 * (0.4 + 0.6 * randSquare());
