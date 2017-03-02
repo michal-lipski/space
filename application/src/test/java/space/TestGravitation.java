@@ -9,7 +9,7 @@ public class TestGravitation {
     @Test
     public void gravitationalFormulaIsCorrect() throws Exception {
         SpaceView s = new SpaceView();
-        s.setStepSize(1);
+        SpaceLogic.setStepSize(1);
         double earthsWeight = 5.9736e24;
         int earthsRadius = 6371000;
         PhysicalObject earth = SpaceLogic.add(earthsWeight, 0, -earthsRadius, 0, 0, 1);

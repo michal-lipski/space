@@ -8,6 +8,7 @@ public class SpaceLogic {
 
     static final double G = 6.67428e-11; // m3/kgs2
     static final double ASTRONOMICAL_UNIT = 149597870.7e3;
+    public static double seconds = 1;
     static List<PhysicalObject> objects = new ArrayList<PhysicalObject>();
 
     static void logicStep(boolean isBouncingBalls) {
@@ -27,15 +28,15 @@ public class SpaceLogic {
                 }
                 double ax = fx / aff.mass;
                 double ay = fy / aff.mass;
-                aff.x = aff.x - ax * Math.pow(SpaceView.seconds, 2) / 2 + aff.vx * SpaceView.seconds;
-                aff.y = aff.y - ay * Math.pow(SpaceView.seconds, 2) / 2 + aff.vy * SpaceView.seconds;
-                aff.vx = aff.vx - ax * SpaceView.seconds;
-                aff.vy = aff.vy - ay * SpaceView.seconds;
+                aff.x = aff.x - ax * Math.pow(seconds, 2) / 2 + aff.vx * seconds;
+                aff.y = aff.y - ay * Math.pow(seconds, 2) / 2 + aff.vy * seconds;
+                aff.vx = aff.vx - ax * seconds;
+                aff.vy = aff.vy - ay * seconds;
             }
         } else {
             for (PhysicalObject physicalObject : objects) {
-                physicalObject.x = physicalObject.x + physicalObject.vx * SpaceView.seconds;
-                physicalObject.y = physicalObject.y + physicalObject.vy * SpaceView.seconds;
+                physicalObject.x = physicalObject.x + physicalObject.vx * seconds;
+                physicalObject.y = physicalObject.y + physicalObject.vy * seconds;
             }
 
         }
@@ -58,7 +59,7 @@ public class SpaceLogic {
                     double distance = Math.sqrt(Math.pow(one.x - other.x, 2) + Math.pow(one.y - other.y, 2));
                     double collsionDistance = one.radius + other.radius;
                     if (distance < collsionDistance) {
-                        one.hitBy(other, SpaceView.seconds);
+                        one.hitBy(other, seconds);
                     }
                 }
             }
@@ -121,5 +122,9 @@ public class SpaceLogic {
                 vx, vy, radius);
         objects.add(physicalObject);
         return physicalObject;
+    }
+
+    public static void setStepSize(double seconds) {
+        SpaceLogic.seconds = seconds;
     }
 }

@@ -24,7 +24,6 @@ public class SpaceView extends JFrame implements MouseWheelListener,
 
     private static final long serialVersionUID = 1532817796535372081L;
 
-    public static double seconds = 1;
     static double centrex = 0.0;
     static double centrey = 0.0;
     static double scale = 10;
@@ -41,7 +40,7 @@ public class SpaceView extends JFrame implements MouseWheelListener,
 
     static void initSpace(SpaceView spaceView, int nrOfObjects) {
         if (!IS_BOUNCING_BALLS) {
-            spaceView.setStepSize(3600 * 24 * 7);
+            SpaceLogic.setStepSize(3600 * 24 * 7);
 
             double outerLimit = SpaceLogic.bouncingBallsMainLogic(nrOfObjects);
 
@@ -49,7 +48,7 @@ public class SpaceView extends JFrame implements MouseWheelListener,
 
             SpaceLogic.add(EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
         } else {
-            spaceView.setStepSize(1); // One second per iteration
+            SpaceLogic.setStepSize(1); // One second per iteration
 
             SpaceLogic.nonBouncingBallsMainLogic();
             scale = 1;
@@ -143,10 +142,6 @@ public class SpaceView extends JFrame implements MouseWheelListener,
                 e.printStackTrace();
             }
         }
-    }
-
-    public void setStepSize(double seconds) {
-        SpaceView.seconds = seconds;
     }
 
     public void step() {
