@@ -28,7 +28,6 @@ public class Space extends JFrame implements MouseWheelListener,
     private static final long serialVersionUID = 1532817796535372081L;
 
     public static double seconds = 1;
-    private static List<PhysicalObject> objects = new ArrayList<PhysicalObject>();
     static double centrex = 0.0;
     static double centrey = 0.0;
     static double scale = 10;
@@ -76,9 +75,9 @@ public class Space extends JFrame implements MouseWheelListener,
             if (!showWake) {
                 graphics.clearRect(0, 0, getWidth(), getHeight());
             }
-            for (PhysicalObject po : objects) {
+            for (PhysicalObject po : SpaceLogic.objects) {
                 paintPhysicalObject(po, graphics);
-                String string = "Objects:" + objects.size() + " scale:" + scale + " steps:" + step + " frame rate: " + frameRate;
+                String string = "Objects:" + SpaceLogic.objects.size() + " scale:" + scale + " steps:" + step + " frame rate: " + frameRate;
                 setTitle(string);
             }
             original.drawImage(buffer, 0, 0, getWidth(), getHeight(), null);
@@ -177,54 +176,22 @@ public class Space extends JFrame implements MouseWheelListener,
                                      double vx, double vy, double radius) {
         PhysicalObject physicalObject = new PhysicalObject(weightKilos, x, y,
                 vx, vy, radius);
-        objects.add(physicalObject);
+        SpaceLogic.objects.add(physicalObject);
         return physicalObject;
     }
 
     public void step() {
-        logicStep();
-        paint(getGraphics());
-
-    }
-
-    private static void logicStep() {
-        if (!IS_BOUNCING_BALLS) {
-            for (PhysicalObject aff : objects) {
-                double fx = 0;
-                double fy = 0;
-                for (PhysicalObject oth : objects) {
-                    if (aff == oth)
-                        continue;
-                    double[] d = new double[]{aff.x - oth.x, aff.y - oth.y};
-                    double r2 = Math.pow(d[0], 2) + Math.pow(d[1], 2);
-                    double f = SpaceLogic.G * aff.mass * oth.mass / r2;
-                    double sqrtOfR2 = Math.sqrt(r2);
-                    fx += f * d[0] / sqrtOfR2;
-                    fy += f * d[1] / sqrtOfR2;
-                }
-                double ax = fx / aff.mass;
-                double ay = fy / aff.mass;
-                aff.x = aff.x - ax * Math.pow(seconds, 2) / 2 + aff.vx * seconds;
-                aff.y = aff.y - ay * Math.pow(seconds, 2) / 2 + aff.vy * seconds;
-                aff.vx = aff.vx - ax * seconds;
-                aff.vy = aff.vy - ay * seconds;
-            }
-        } else {
-            for (PhysicalObject physicalObject : objects) {
-                physicalObject.x = physicalObject.x + physicalObject.vx * seconds;
-                physicalObject.y = physicalObject.y + physicalObject.vy * seconds;
-            }
-
-        }
+        SpaceLogic.logicStep();
         step++;
+        paint(getGraphics());
     }
 
     private void collide() {
         List<PhysicalObject> remove = new ArrayList<PhysicalObject>();
-        for (PhysicalObject one : objects) {
+        for (PhysicalObject one : SpaceLogic.objects) {
             if (remove.contains(one))
                 continue;
-            for (PhysicalObject other : objects) {
+            for (PhysicalObject other : SpaceLogic.objects) {
                 if (one == other || remove.contains(other))
                     continue;
                 if (!IS_BOUNCING_BALLS) {
@@ -258,7 +225,7 @@ public class Space extends JFrame implements MouseWheelListener,
                 }
             }
         }
-        objects.removeAll(remove);
+        SpaceLogic.objects.removeAll(remove);
     }
 
 
