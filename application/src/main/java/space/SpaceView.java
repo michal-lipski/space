@@ -14,13 +14,10 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SpaceView extends JFrame implements MouseWheelListener,
         MouseMotionListener, KeyListener {
     public static final double EARTH_WEIGHT = 5.9736e24;
-    private static final double ASTRONOMICAL_UNIT = 149597870.7e3;
     static boolean IS_BOUNCING_BALLS = false;
     static boolean IS_BREAKOUT = false; // Opens bottom, only active if IS_BOUNCING_BALLS is true
 
@@ -33,7 +30,6 @@ public class SpaceView extends JFrame implements MouseWheelListener,
     static double scale = 10;
     private static boolean showWake = false;
     private static int step = 0;
-    private static int nrOfObjects = 75;
     private static int frameRate = 25;
 
     static JFrame frame;
@@ -105,46 +101,13 @@ public class SpaceView extends JFrame implements MouseWheelListener,
         spaceView.addKeyListener(spaceView);
         spaceView.setSize(800, 820);
 
-        if (!IS_BOUNCING_BALLS) {
-            spaceView.setStepSize(3600 * 24 * 7);
-
-            double outerLimit = ASTRONOMICAL_UNIT * 20;
-
-            for (int i = 0; i < nrOfObjects; i++) {
-                double angle = randSquare() * 2 * Math.PI;
-                double radius = (0.1 + 0.9 * Math.sqrt(randSquare())) * outerLimit;
-                double weightKilos = 1e3 * EARTH_WEIGHT * (Math.pow(0.00001 + 0.99999 * randSquare(), 12));
-                double x = radius * Math.sin(angle);
-                double y = radius * Math.cos(angle);
-                double speedRandom = Math.sqrt(1 / radius) * 2978000*1500 * (0.4 + 0.6 * randSquare());
-
-                double vx = speedRandom * Math.sin(angle - Math.PI / 2);
-                double vy = speedRandom * Math.cos(angle - Math.PI / 2);
-                add(weightKilos, x, y, vx, vy, 1);
-            }
-
-            scale = outerLimit / spaceView.getWidth();
-
-            add(EARTH_WEIGHT * 20000, 0, 0, 0, 0, 1);
-        } else {
-            nrOfObjects = 50;
-            spaceView.setStepSize(1); // One second per iteration
-            for (int i = 0; i < nrOfObjects; i++) {
-                // radius,weight in [1,20]
-                double radiusAndWeight = 1 + 19 * Math.random();
-                //x,y in [max radius, width or height - max radius]
-                SpaceView.add(radiusAndWeight, 20 + 760 * Math.random(), 20 + 760 * Math.random(), 3 - 6 * Math.random(), 3 - 6 * Math.random(), radiusAndWeight);
-            }
-            scale = 1;
-            centrex = 400;
-            centrey = 390; //Must compensate for title bar
-        }
+        SpaceLogic.mainLogic(spaceView, 75);
         spaceView.setVisible(true);
         while (true) {
             final long start = System.currentTimeMillis();
             EventQueue.invokeAndWait(new Runnable() {
                 public void run() {
-                    spaceView.collide();
+                    SpaceLogic.collide();
                     spaceView.step();
                 }
             });
@@ -163,11 +126,6 @@ public class SpaceView extends JFrame implements MouseWheelListener,
         }
     }
 
-    private static double randSquare() {
-        double random = Math.random();
-        return random * random;
-    }
-
     public void setStepSize(double seconds) {
         SpaceView.seconds = seconds;
     }
@@ -184,48 +142,6 @@ public class SpaceView extends JFrame implements MouseWheelListener,
         SpaceLogic.logicStep();
         step++;
         paint(getGraphics());
-    }
-
-    private void collide() {
-        List<PhysicalObject> remove = new ArrayList<PhysicalObject>();
-        for (PhysicalObject one : SpaceLogic.objects) {
-            if (remove.contains(one))
-                continue;
-            for (PhysicalObject other : SpaceLogic.objects) {
-                if (one == other || remove.contains(other))
-                    continue;
-                if (!IS_BOUNCING_BALLS) {
-                    if (Math.sqrt(Math.pow(one.x - other.x, 2) + Math.pow(one.y - other.y, 2)) < 5e9) {
-                        one.absorb(other);
-                        remove.add(other);
-                    }
-                } else {
-                    double distance = Math.sqrt(Math.pow(one.x - other.x, 2) + Math.pow(one.y - other.y, 2));
-                    double collsionDistance = one.radius + other.radius;
-                    if (distance < collsionDistance) {
-                        one.hitBy(other, seconds);
-                    }
-                }
-            }
-            // Wall collision reverses speed in that direction
-            if (IS_BOUNCING_BALLS) {
-                if (one.x - one.radius < 0) {
-                    one.vx = -one.vx;
-                }
-                if (one.x + one.radius > 800) {
-                    one.vx = -one.vx;
-                }
-                if (one.y - one.radius < 0) {
-                    one.vy = -one.vy;
-                }
-                if (one.y + one.radius > 800 && !IS_BREAKOUT) {
-                    one.vy = -one.vy;
-                } else if (one.y - one.radius > 800) {
-                    remove.add(one);
-                }
-            }
-        }
-        SpaceLogic.objects.removeAll(remove);
     }
 
 
